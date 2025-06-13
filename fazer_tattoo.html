@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer uma Tattoo | Cezimbratattoo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .carousel-item video {
+            width: 100%;
+            height: 480px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 20px;
+            border: 4px solid #FFD700;
+            box-shadow: 0 0 24px 6px #FFD70055, 0 8px 32px 0 #FFD70033;
+            outline: 2px solid #fff2;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .carousel-item video:hover {
+            box-shadow: 0 0 36px 10px #FFD70099, 0 8px 32px 0 #FFD70044;
+            border-color: #fffbe0;
+        }
+        @media (max-width: 768px) {
+            .carousel-item video { height: 220px; }
+        }
+        .carousel-indicators [data-bs-target] {
+            background-color: #FFD700;
+        }
+        .carousel-control-next-icon, .carousel-control-prev-icon {
+            filter: drop-shadow(0 0 6px #FFD70099);
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html#ia" id="nav-ia">Criar tattoo com I.A</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  // Navbar highlight ativo
+  document.addEventListener('DOMContentLoaded', function() {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    if (path.endsWith('fazer_tattoo.html')) {
+      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('remover_tattoo.html')) {
+      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('catalogo.html')) {
+      if (hash === '#ia') {
+        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
+      } else {
+        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
+      }
+    }
+  });
+</script>
+    <main class="container pt-5 mt-5 mb-5">
+        <section class="apresentacao-artista p-4 rounded-4 shadow-lg bg-black bg-opacity-75 mt-5 mb-5">
+            <h2 class="text-glow mb-3 anim-artista">Conheça o Artista</h2>
+            <p class="fs-5 mb-2 anim-artista">Trabalho exclusivamente com <span class="fw-bold text-warning">materiais descartáveis de alta qualidade</span> e <span class="fw-bold text-warning">pigmentos premium</span> para garantir segurança, saúde e resultados excepcionais.</p>
+            <p class="fs-5 mb-2 anim-artista">Possuo diversas <span class="fw-bold text-warning">certificações nacionais e internacionais</span> em biossegurança, pigmentação e técnicas avançadas de tatuagem.</p>
+            <p class="fs-5 mb-2 anim-artista">Sou especialista em <span class="fw-bold text-warning">realismo preto e cinza</span>, fechamento de tatuagens antigas e <span class="fw-bold text-warning">cobertura de tatuagem a laser</span>.</p>
+
+        </section>
+        <section class="galeria-videos mb-5">
+            <h3 class="text-center text-glow mb-4 animate__animated animate__fadeIn">Veja alguns trabalhos em vídeo</h3>
+            <div id="carouselVideos" class="carousel slide animate__animated animate__fadeInUp" data-bs-ride="carousel" data-bs-interval="4200">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselVideos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Vídeo 1"></button>
+                    <button type="button" data-bs-target="#carouselVideos" data-bs-slide-to="1" aria-label="Vídeo 2"></button>
+                    <button type="button" data-bs-target="#carouselVideos" data-bs-slide-to="2" aria-label="Vídeo 3"></button>
+                </div>
+                <div class="carousel-inner rounded-4 shadow-lg">
+                    <div class="carousel-item active">
+                        <video src="videos/tattoo1.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="carousel-item">
+                        <video src="videos/tattoo2.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="carousel-item">
+                        <video src="videos/tattoo3.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVideos" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselVideos" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            </div>
+        </section>
+        <section class="orcamento-catalogo text-center animate__animated animate__fadeInUp mt-5">
+            <h4 class="mb-4 text-glow">Qual opção você deseja?</h4>
+            <button id="btn-orcamento-tattoo" class="btn btn-success btn-lg fw-bold mx-3 animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#modalOrcamentoTattoo">Fazer Orçamento no WhatsApp</button>
+<br class="d-block d-md-none"><span class="d-none d-md-block" style="display:block;height:24px;"></span>
+<button id="btn-catalogo-tattoo" class="btn btn-warning btn-lg fw-bold mx-3 animate__animated animate__pulse animate__infinite mt-4">Conhecer Catálogo Promocional</button>
+
+
+        </section>
+    </main>
+<!-- Modal Orçamento WhatsApp -->
+<div class="modal fade" id="modalOrcamentoTattoo" tabindex="-1" aria-labelledby="modalOrcamentoTattooLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light border-warning">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-glow" id="modalOrcamentoTattooLabel">Para fazer seu orçamento online no WhatsApp, envie:</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="fs-5 mb-3">
+          <li>Foto da tatuagem que deseja fazer</li>
+          <li>Foto do local onde deseja a tattoo</li>
+          <li>Uma breve explicação se deseja fazer alguma alteração na imagem</li>
+        </ul>
+        <div class="text-center mt-4">
+          <button id="btn-enviar-whatsapp" class="btn btn-success btn-lg fw-bold animate__animated animate__pulse animate__infinite">
+            Enviar para WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script-fazer.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Animação de entrada dos vídeos do carrossel ao aparecerem na viewport
+        const videos = document.querySelectorAll('.carousel-item video');
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && !entry.target.classList.contains('animate__fadeInUp')) {
+                entry.target.classList.add('animate__animated','animate__fadeInUp');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          videos.forEach(video => observer.observe(video));
+        } else {
+          // fallback: anima todos de uma vez
+          videos.forEach(v => v.classList.add('animate__animated','animate__fadeInUp'));
+        }
+        // Animação de entrada para apresentação do artista
+        const artistaEls = document.querySelectorAll('.anim-artista');
+        if ('IntersectionObserver' in window) {
+          const obsArtista = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && !entry.target.classList.contains('animate__fadeInUp')) {
+                entry.target.classList.add('animate__animated','animate__fadeInUp');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.2 });
+          artistaEls.forEach(el => obsArtista.observe(el));
+        } else {
+          artistaEls.forEach(el => el.classList.add('animate__animated','animate__fadeInUp'));
+        }
+      });
+    </script>
+</body>
+</html>

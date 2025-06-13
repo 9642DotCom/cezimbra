@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Conexão Supabase</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .result {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0069d9;
+        }
+        #status {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verificação da Integração Supabase</h1>
+    
+    <div class="card">
+        <h2>Status da Conexão</h2>
+        <div id="connection-status">Verificando...</div>
+    </div>
+
+    <div class="card">
+        <h2>Testes de Funções</h2>
+        <div>
+            <button id="btn-test-categories">Testar Categorias</button>
+            <button id="btn-test-tattoos">Testar Tatuagens</button>
+            <button id="btn-test-storage">Testar Storage</button>
+        </div>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="card">
+        <h2>Log de Execução</h2>
+        <div id="log" class="result"></div>
+    </div>
+
+    <!-- Carregar Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js"></script>
+    <script type="module">
+        // Importar o cliente Supabase e funções
+        import { supabase, fetchCategories, fetchTattoos } from './supabase-client.js';
+        
+        // Função para adicionar log
+        function addLog(message, isError = false) {
+            const logEl = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logItem = document.createElement('div');
+            logItem.innerHTML = `<span style="color: #6c757d">[${timestamp}]</span> ${message}`;
+            
+            if (isError) {
+                logItem.classList.add('error');
+            }
+            
+            logEl.appendChild(logItem);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        // Função para exibir resultados de teste
+        function showTestResult(title, data, success = true) {
+            const resultsEl = document.getElementById('test-results');
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            resultDiv.style.borderLeftColor = success ? '#28a745' : '#dc3545';
+            
+            const titleEl = document.createElement('h3');
+            titleEl.textContent = title;
+            titleEl.className = success ? 'success' : 'error';
+            
+            const contentEl = document.createElement('pre');
+            contentEl.textContent = typeof data === 'object' ? JSON.stringify(data, null, 2) : data;
+            
+            resultDiv.appendChild(titleEl);
+            resultDiv.appendChild(contentEl);
+            resultsEl.appendChild(resultDiv);
+        }
+
+        // Verificar conexão do Supabase
+        async function checkConnection() {
+            const connectionStatus = document.getElementById('connection-status');
+            
+            try {
+                addLog('Verificando conexão com Supabase...');
+                
+                if (!window.supabaseClient) {
+                    throw new Error('Biblioteca Supabase não carregada');
+                }
+                
+                addLog('Cliente Supabase inicializado');
+                
+                // Tentar uma consulta simples para confirmar a conexão
+                const { data, error } = await supabase.from('categories').select('count', { count: 'exact', head: true });
+                
+                if (error) throw error;
+                
+                connectionStatus.innerHTML = '✅ <span class="success">Conectado ao Supabase com sucesso!</span>';
+                addLog('Conexão estabelecida com sucesso');
+                return true;
+                
+            } catch (error) {
+                connectionStatus.innerHTML = '❌ <span class="error">Erro na conexão com Supabase</span>';
+                addLog(`Erro ao conectar: ${error.message}`, true);
+                showTestResult('Erro de Conexão', error.message, false);
+                return false;
+            }
+        }
+
+        // Testar funções de categorias
+        async function testCategories() {
+            try {
+                addLog('Testando busca de categorias...');
+                const categories = await fetchCategories();
+                addLog(`${categories.length} categorias encontradas`);
+                showTestResult('Categorias', categories);
+                return categories;
+            } catch (error) {
+                addLog(`Erro ao buscar categorias: ${error.message}`, true);
+                showTestResult('Erro em Categorias', error.message, false);
+                return null;
+            }
+        }
+
+        // Testar funções de tatuagens
+        async function testTattoos() {
+            try {
+                addLog('Testando busca de tatuagens...');
+                const tattoos = await fetchTattoos();
+                addLog(`${tattoos.length} tatuagens encontradas`);
+                showTestResult('Tatuagens', tattoos);
+                return tattoos;
+            } catch (error) {
+                addLog(`Erro ao buscar tatuagens: ${error.message}`, true);
+                showTestResult('Erro em Tatuagens', error.message, false);
+                return null;
+            }
+        }
+
+        // Testar acesso ao storage
+        async function testStorage() {
+            try {
+                addLog('Testando acesso ao storage...');
+                
+                // Verificar se o bucket 'tattoos' existe
+                const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
+                
+                if (bucketsError) throw bucketsError;
+                
+                const tattoosBucket = buckets.find(bucket => bucket.name === 'tattoos');
+                
+                if (!tattoosBucket) {
+                    addLog('Bucket "tattoos" não encontrado. Será necessário criar.', true);
+                    showTestResult('Storage', 'Bucket "tattoos" não encontrado', false);
+                    return false;
+                }
+                
+                // Listar os arquivos no bucket
+                const { data: files, error: filesError } = await supabase.storage
+                    .from('tattoos')
+                    .list();
+                
+                if (filesError) throw filesError;
+                
+                addLog(`${files.length} arquivos encontrados no storage`);
+                showTestResult('Storage', { bucket: tattoosBucket.name, files });
+                return true;
+                
+            } catch (error) {
+                addLog(`Erro ao acessar storage: ${error.message}`, true);
+                showTestResult('Erro no Storage', error.message, false);
+                return false;
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', async () => {
+            const connected = await checkConnection();
+            
+            if (connected) {
+                document.getElementById('btn-test-categories').addEventListener('click', testCategories);
+                document.getElementById('btn-test-tattoos').addEventListener('click', testTattoos);
+                document.getElementById('btn-test-storage').addEventListener('click', testStorage);
+                
+                addLog('Pronto para executar testes. Clique nos botões acima.');
+            }
+        });
+    </script>
+</body>
+</html>

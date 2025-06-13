@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cezimbratattoo - Estúdio de Tatuagem & Remoção a Laser</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .index-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .index-hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .index-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="index-hero-bg">
+        <video class="index-hero-video" src="videos/tattoo1.mp4" autoplay muted loop playsinline></video>
+        <video class="index-hero-video d-none" src="videos/tattoo2.mp4" autoplay muted loop playsinline></video>
+        <video class="index-hero-video d-none" src="videos/tattoo3.mp4" autoplay muted loop playsinline></video>
+        <div class="index-hero-overlay"></div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
+    <a href="jogue_e_ganhe.html" class="navbar-link" style="margin-left:auto; font-size:1.15rem; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:0.4em;">
+        <span style="font-size:1.4em;">🎰</span> Jogue e Ganhe
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html#ia" id="nav-ia">Criar tattoo com I.A</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  // Navbar highlight ativo
+  document.addEventListener('DOMContentLoaded', function() {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    if (path.endsWith('fazer_tattoo.html')) {
+      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('remover_tattoo.html')) {
+      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('catalogo.html')) {
+      if (hash === '#ia') {
+        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
+      } else {
+        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
+      }
+    }
+  });
+</script>
+
+    <!-- Hero Section -->
+    <main class="container-fluid d-flex flex-column align-items-center justify-content-center min-vh-100 p-0 m-0 position-relative" style="z-index: 10; height: 100vh; max-width: 100vw;">
+        <section class="hero-section text-center position-relative w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="height: 100vh; min-height: 100vh;">
+            <h1 class="display-3 fw-bold text-glow mb-3">Cezimbratattoo</h1>
+            <h2 class="h4 text-light mb-4">Arte, exclusividade e tecnologia para sua pele</h2>
+            <div class="d-flex flex-wrap gap-3 justify-content-center mb-4">
+                <a href="fazer_tattoo.html" class="btn btn-warning btn-lg fw-bold px-4 py-2">Fazer Tattoo</a>
+                <a href="remover_tattoo.html" class="btn btn-outline-light btn-lg fw-bold px-4 py-2">Remover Tattoo</a>
+                <a href="catalogo.html" class="btn btn-outline-warning btn-lg fw-bold px-4 py-2">Catálogo Promocional</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script-fazer.js"></script>
+</body>
+</html>

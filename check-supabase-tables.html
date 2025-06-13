@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação de Tabelas do Supabase</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      color: #555;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+    .success {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .error {
+      color: #dc3545;
+      font-weight: bold;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0069d9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Verificação de Tabelas do Supabase</h1>
+  
+  <button id="checkTables">Verificar Tabelas</button>
+  <button id="resetDatabase">Resetar Banco de Dados</button>
+  
+  <div id="output" style="margin-top: 20px;"></div>
+
+  <script src="check-supabase-tables.js"></script>
+  <script>
+    document.getElementById('checkTables').addEventListener('click', function() {
+      document.getElementById('output').innerHTML = '<p>Verificando tabelas...</p>';
+      // O script check-supabase-tables.js já será executado automaticamente
+    });
+    
+    document.getElementById('resetDatabase').addEventListener('click', async function() {
+      if (confirm('Tem certeza que deseja resetar o banco de dados? Isso apagará todos os dados existentes.')) {
+        document.getElementById('output').innerHTML = '<p>Resetando banco de dados...</p>';
+        
+        try {
+          const SUPABASE_URL = 'https://pvjcpgvkmolgtvdaqlzi.supabase.co';
+          const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2amNwZ3ZrbW9sZ3R2ZGFxbHppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5NTg3OTYsImV4cCI6MjA0OTUzNDc5Nn0.Au_fbs9pbWbVCfG2vDN2RI3C_jD3DJNXTr11bgqFQ3s';
+          
+          // Criando o cliente do Supabase
+          const supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          
+          // Apagar dados da tabela tattoos
+          const { error: deleteTattoosError } = await supabase.from('tattoos').delete().neq('id', 0);
+          if (deleteTattoosError) throw deleteTattoosError;
+          
+          // Apagar dados da tabela categories
+          const { error: deleteCategoriesError } = await supabase.from('categories').delete().neq('id', 0);
+          if (deleteCategoriesError) throw deleteCategoriesError;
+          
+          // Adicionar categorias padrão
+          const { error: addCategoriesError } = await supabase.from('categories').insert([
+            { nome: 'Oldschool' },
+            { nome: 'Colorida' },
+            { nome: 'Blackwork' },
+            { nome: 'Fine Line' }
+          ]);
+          if (addCategoriesError) throw addCategoriesError;
+          
+          document.getElementById('output').innerHTML += '<p class="success">✅ Banco de dados resetado com sucesso!</p>';
+        } catch (error) {
+          document.getElementById('output').innerHTML += `<p class="error">❌ Erro ao resetar banco de dados: ${error.message}</p>`;
+          console.error('Erro completo:', error);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

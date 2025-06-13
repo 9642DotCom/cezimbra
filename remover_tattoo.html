@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Tatuagem | Cezimbratattoo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html#ia" id="nav-ia">Criar tattoo com I.A</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  // Navbar highlight ativo
+  document.addEventListener('DOMContentLoaded', function() {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    if (path.endsWith('fazer_tattoo.html')) {
+      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('remover_tattoo.html')) {
+      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('catalogo.html')) {
+      if (hash === '#ia') {
+        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
+      } else {
+        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
+      }
+    }
+  });
+</script>
+    <main class="container d-flex flex-column align-items-center justify-content-center min-vh-100 pt-5">
+        <div class="questionario-box animate__animated animate__fadeInUp mt-5 p-4 rounded-4 shadow-lg bg-gradient bg-black bg-opacity-75">
+            <h2 class="mb-4 text-center fw-bold text-glow">Remoção de Tatuagem a Laser</h2>
+            <form id="form-remocao" class="d-flex flex-column gap-4">
+                <div class="form-group">
+                    <label for="tempoTattoo" class="form-label">Há quanto tempo você possui a tatuagem?</label>
+                    <input type="text" class="form-control" id="tempoTattoo" placeholder="Ex: 3 anos, 6 meses..." required>
+                </div>
+                <div class="form-group">
+                    <label for="motivoTattoo" class="form-label">Por qual motivo deseja remover a tatuagem?</label>
+                    <input type="text" class="form-control" id="motivoTattoo" placeholder="Ex: Mudança de gosto, trabalho, etc." required>
+                </div>
+                <div class="form-group">
+                    <label for="retoqueTattoo" class="form-label">A tatuagem foi feita só uma vez ou já teve retoque?</label>
+                    <select class="form-select" id="retoqueTattoo" required>
+                        <option value="">Selecione...</option>
+                        <option value="Feita somente uma vez">Feita somente uma vez</option>
+                        <option value="Já teve retoque">Já teve retoque</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-warning btn-lg mt-3 fw-bold animate__animated animate__pulse animate__infinite">Próximo</button>
+            </form>
+        </div>
+        <div id="animacao-remocao" class="d-none mt-5 w-100 animate__animated animate__fadeInUp">
+            <div class="p-4 rounded-4 shadow-lg bg-gradient bg-black bg-opacity-75">
+                <h3 class="mb-3 text-center text-glow">Como funciona a remoção a laser?</h3>
+                <ul class="fs-5 mb-4">
+                    <li class="mb-2">O laser fragmenta os pigmentos da tatuagem em partículas minúsculas.</li>
+                    <li class="mb-2">O corpo elimina gradualmente essas partículas ao longo do tempo.</li>
+                    <li class="mb-2">O intervalo ideal entre cada sessão é de 30 a 60 dias.</li>
+                    <li class="mb-2">A quantidade de sessões varia conforme cor, tamanho e profundidade da tattoo.</li>
+                    <li class="mb-2">Cada caso é avaliado individualmente para garantir o melhor resultado.</li>
+                </ul>
+                <div class="text-center mb-3">
+                    <img src="https://cdn.pixabay.com/photo/2017/09/04/18/51/laser-2716181_1280.jpg" alt="Animação Remoção Tattoo" class="img-fluid rounded-4 shadow animate__animated animate__pulse animate__infinite" style="max-width:380px;">
+                </div>
+                <div class="text-center">
+                    <button id="btn-orcamento" class="btn btn-success btn-lg fw-bold animate__animated animate__bounceIn">Quero fazer um orçamento no WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script-remover.js"></script>
+</body>
+</html>

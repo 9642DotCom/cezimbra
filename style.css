@@ -1,0 +1,454 @@
+/* Luxuoso, moderno, com brilho e contraste */
+body {
+}
+
+/* Wizard IA Tattoo */
+#wizard-ia-form .wizard-step { min-height: 180px; }
+#wizard-ia-form label { color: #FFD700; font-weight: bold; text-shadow: 0 2px 8px #FFD70033; }
+#wizard-ia-form input, #wizard-ia-form textarea, #wizard-ia-form select {
+  border: 2px solid #FFD700;
+  background: #181818;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 1.12em;
+  box-shadow: 0 2px 12px #FFD70022;
+}
+#wizard-ia-form input:focus, #wizard-ia-form textarea:focus, #wizard-ia-form select:focus {
+  border-color: #e94b3c;
+  outline: none;
+  background: #222;
+}
+#wizard-ia-form .btn { box-shadow: 0 2px 12px #FFD70055; letter-spacing: 0.5px; }
+#wizard-ia-form .wizard-step-loading .spinner-border { width: 3em; height: 3em; }
+#wizard-ia-form .wizard-step-result img { border: 4px solid #FFD700; box-shadow: 0 2px 24px #FFD70088; }
+@media (max-width: 600px) {
+  #wizard-ia-form .wizard-step { min-height: 120px; }
+  #wizard-ia-form .wizard-step-result img { max-width: 90vw; }
+}
+
+    background: linear-gradient(135deg, #181818 0%, #2d1e2f 100%);
+    min-height: 100vh;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Corrige alinhamento do modal Bootstrap para sempre centralizar na tela */
+.catalogo-categorias-bar {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 0.7rem 0.3rem 0.5rem 0.3rem;
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px #FFD70022;
+  scrollbar-width: thin;
+  position: relative;
+}
+.catalogo-categorias-bar::-webkit-scrollbar {
+  height: 7px;
+  background: transparent;
+}
+.catalogo-categorias-bar::-webkit-scrollbar-thumb {
+  background: #FFD70033;
+  border-radius: 8px;
+}
+.categoria-btn {
+  border: none;
+  background: #222;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 1.04rem;
+  border-radius: 16px;
+  padding: 0.5em 1.3em;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #FFD70012;
+  cursor: pointer;
+  outline: none;
+}
+.categoria-btn.active, .categoria-btn:focus, .categoria-btn:hover {
+  background: #FFD700;
+  color: #181818;
+  box-shadow: 0 4px 16px #FFD70033;
+}
+.catalogo-categorias-bar .scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #181818cc;
+  border: none;
+  color: #FFD700;
+  font-size: 1.6rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.catalogo-categorias-bar .scroll-arrow.left { left: 0.3rem; }
+.catalogo-categorias-bar .scroll-arrow.right { right: 0.3rem; }
+.catalogo-categorias-bar .scroll-arrow:hover { background: #FFD700; color: #181818; }
+
+.catalogo-categorias-secao {
+  margin-bottom: 2.5rem;
+}
+.catalogo-categorias-titulo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 0.7rem;
+  margin-left: 0.7rem;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+.catalogo-categorias-titulo:hover {
+  color: #fff;
+}
+.catalogo-categorias-carrossel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.2rem;
+  padding-bottom: 0.6rem;
+  scroll-snap-type: x mandatory;
+}
+.catalogo-categorias-carrossel::-webkit-scrollbar {
+  height: 7px;
+}
+.catalogo-categorias-carrossel::-webkit-scrollbar-thumb {
+  background: #FFD70044;
+  border-radius: 8px;
+}
+.tattoo-card.carrossel-card {
+  min-width: 220px;
+  max-width: 220px;
+  width: 220px;
+  margin-bottom: 0;
+  scroll-snap-align: start;
+}
+#btn-voltar-catalogo button {
+  border-radius: 20px;
+  font-size: 1.12rem;
+  padding: 0.5em 2.2em;
+  margin-top: 0.7em;
+}
+.catalogo-hero {
+  min-height: 330px;
+  max-height: 420px;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 2.2rem;
+  box-shadow: 0 4px 32px #FFD70022;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.catalogo-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+.catalogo-hero-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  opacity: 1;
+  filter: none;
+  transition: opacity 0.5s;
+}
+.catalogo.index-hero-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, transparent 80%, #18181822 100%);
+  z-index: 1;
+}
+.catalogo-hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 2.7rem 1.5rem 2.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .catalogo-hero {
+    min-height: 180px;
+    max-height: 220px;
+    border-radius: 12px;
+  }
+  .catalogo-hero-content {
+    padding: 1.2rem 0.4rem 1.2rem 0.4rem;
+  }
+}
+.catalogo-masonry {
+  column-count: 1;
+  column-gap: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1.5rem;
+  margin-top: 1.2rem;
+}
+
+
+@media (min-width: 576px) {
+  .catalogo-masonry { column-count: 2; }
+}
+@media (min-width: 992px) {
+  .catalogo-masonry { column-count: 4; }
+}
+.tattoo-card {
+  box-shadow: 0 2px 18px #FFD70022, 0 2px 10px #0005;
+  margin-bottom: 2rem;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+}
+.tattoo-card.animate__fadeInUp {
+  opacity: 0;
+}
+
+.tattoo-card {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1rem;
+  background: #222;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px #0005;
+  overflow: hidden;
+  transition: transform 0.17s, box-shadow 0.17s;
+  border: none;
+  position: relative;
+  min-height: 310px;
+}
+.tattoo-card:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 8px 32px #ffd70055, 0 2px 8px #0008;
+  z-index: 2;
+}
+.tattoo-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #111;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  z-index: 1;
+}
+.tattoo-preco-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(90deg,#FFD700 80%,#fff2 100%);
+  color: #181818;
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 0.28em 1em;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #FFD70044;
+  z-index: 3;
+  letter-spacing: 1px;
+}
+.tattoo-favorito {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #fff;
+  color: #FFD700;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px #FFD70044;
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.2s;
+  font-size: 1.3rem;
+}
+.tattoo-favorito.active, .tattoo-favorito:hover {
+  background: #FFD700;
+  color: #fff;
+}
+.tattoo-info {
+  padding: 0.8rem 1rem 0.7rem 1rem;
+  min-height: 80px;
+}
+.tattoo-nome {
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2em;
+}
+.tattoo-meta {
+  font-size: 0.97rem;
+  color: #FFD700;
+  opacity: 0.92;
+  margin-bottom: 0.2em;
+}
+
+.hero-bg-video {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 1;
+    filter: brightness(1.18) contrast(1.08) saturate(1.1);
+    pointer-events: none;
+    transition: opacity 0.6s;
+}
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #FFD700;
+    text-shadow: 0 2px 32px #FFD70099, 0 0 12px #fff2;
+    margin-bottom: 0.3em;
+    margin-top: 0.5em;
+    animation: fadeInDown 1.2s cubic-bezier(.4,2,.6,1);
+}
+
+.hero-subtitle {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 2em;
+    text-shadow: 0 0 16px #FFD70033, 0 0 4px #fff2;
+    animation: fadeInUp 1.4s cubic-bezier(.4,2,.6,1);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.3rem;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+
+.navbar {
+    background: rgba(20, 20, 20, 0.98) !important;
+    border-bottom: 2px solid #FFD700;
+}
+
+.logo-animada {
+    filter: drop-shadow(0 0 10px #FFD700);
+    animation: pulseLogo 2s infinite alternate;
+}
+
+@keyframes pulseLogo {
+    0% { filter: drop-shadow(0 0 10px #FFD700); }
+    100% { filter: drop-shadow(0 0 30px #FFD700); }
+}
+
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(120deg, rgba(40,20,30,0.95) 60%, rgba(60,40,60,0.7) 100%), url('tattoo-bg.jpg') center/cover no-repeat;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 1;
+}
+
+.text-glow {
+    color: #FFD700;
+    text-shadow: 0 0 10px #FFD700, 0 0 30px #fff, 0 0 60px #FFD700;
+}
+
+.text-luxury {
+    color: #fff;
+    text-shadow: 0 0 10px #FFD70055, 0 0 30px #fff2, 0 0 60px #FFD70022;
+}
+
+.catalogo-filtros .form-select, .catalogo-filtros .form-control {
+  border-radius: 20px;
+  border: 2px solid #FFD700;
+  background: #222;
+  color: #FFD700;
+  min-width: 120px;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.catalogo-filtros .form-select:focus, .catalogo-filtros .form-control:focus {
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px #FFD70055;
+}
+.catalogo-filtros #btn-toggle-filtros {
+  border-radius: 20px;
+  font-size: 1.07rem;
+  padding: 0.45em 1.2em;
+  background: transparent;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  transition: background 0.2s, color 0.2s;
+}
+.catalogo-filtros #btn-toggle-filtros:hover, .catalogo-filtros #btn-toggle-filtros:focus {
+  background: #FFD700;
+  color: #181818;
+}
+#filtros-avancados {
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px #FFD70022;
+  padding: 1.1em 0.7em 0.7em 0.7em;
+  margin-top: 0.2em;
+  animation: fadeIn 0.4s;
+}
+
+.menu-escolha .menu-btn {
+    border-width: 2px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 0.75em 2.5em;
+    transition: all 0.25s cubic-bezier(.4,2,.6,1);
+    box-shadow: 0 0 16px 2px #FFD70044;
+    letter-spacing: 1px;
+}
+.menu-escolha .menu-btn:hover {
+    background: #FFD700;
+    color: #181818;
+    box-shadow: 0 0 40px 8px #FFD70099, 0 0 8px #fff;
+    transform: scale(1.07) rotate(-2deg);
+}
+
+/* Animações extras */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: #181818;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 4px;
+}

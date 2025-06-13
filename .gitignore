@@ -1,0 +1,9 @@
+# Ignorar arquivos e pastas desnecessários para produção
+node_modules/
+.vscode/
+*.log
+dist/
+build/
+.env
+.DS_Store
+Thumbs.db

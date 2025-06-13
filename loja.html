@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja de Tatuagens | Cezimbra Tattoo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    body { background: #181818; color: #fff; }
+    .catalogo-hero { background: linear-gradient(90deg, #181818 60%, #FFD70022 100%); border-radius: 18px; padding: 2.5rem 2rem 2rem 2rem; margin-bottom: 2.5rem; box-shadow: 0 4px 32px #FFD70022; }
+    .categoria-btn { margin: 0.25rem; }
+    .tattoo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .tattoo-card { background: #232323cc; border-radius: 18px; box-shadow: 0 2px 16px #FFD70011; padding: 1rem; transition: transform .2s; cursor: pointer; }
+    .tattoo-card:hover { transform: scale(1.03); box-shadow: 0 4px 32px #FFD70033; }
+    .tattoo-img { width: 100%; max-height: 260px; object-fit: cover; border-radius: 12px; border: 2px solid #FFD70044; }
+    .tattoo-title { font-weight: bold; font-size: 1.1rem; margin-top: 0.5rem; }
+    .tattoo-price { color: #FFD700; font-size: 1.2rem; }
+    .tattoo-old-price { color: #bbb; text-decoration: line-through; font-size: 1rem; margin-left: 0.5rem; }
+    .tattoo-badge { background: #FFD700; color: #232323; font-weight: bold; border-radius: 8px; padding: 0.2em 0.7em; font-size: 0.9em; margin-right: 0.3em; }
+    .modal-content { background: #232323; color: #fff; }
+    .cart-btn { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
+    @media (max-width: 600px) { .tattoo-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <div class="catalogo-hero mb-4">
+      <h2 class="fw-bold">Catálogo de Tatuagens</h2>
+      <p class="mb-0">Escolha sua próxima tattoo, adicione ao carrinho e faça sua reserva!</p>
+    </div>
+    <div class="mb-3" id="categoriasFiltro"></div>
+    <div id="tattooGrid" class="tattoo-grid mb-5"></div>
+    <button class="btn btn-warning cart-btn shadow-lg" id="btnCarrinho" style="display:none;">
+      <i class="bi bi-cart4"></i> Carrinho <span id="cartCount" class="badge bg-dark ms-1">0</span>
+    </button>
+  </div>
+  <!-- Modal Detalhes Tattoo -->
+  <div class="modal fade" id="modalTattooDetalhe" tabindex="-1" aria-labelledby="modalTattooDetalheLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalTattooDetalheLabel">Detalhes da Tatuagem</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="tattooDetalheBody"></div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-warning" id="btnAddCarrinho"><i class="bi bi-cart-plus"></i> Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Carrinho -->
+  <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalCarrinhoLabel">Seu Carrinho</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="carrinhoBody"></div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success" id="btnReservarTattoo"><i class="bi bi-calendar-check"></i> Reservar Horário</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Reserva -->
+  <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalReservaLabel">Finalizar Reserva</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <form id="formReserva">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input type="text" class="form-control" name="nome" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Telefone/WhatsApp</label>
+              <input type="text" class="form-control" name="telefone" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Observações</label>
+              <textarea class="form-control" name="obs" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Forma de Pagamento</label>
+              <select class="form-select" name="pagamento" required>
+                <option value="">Selecione</option>
+                <option>Pix</option>
+                <option>Cartão</option>
+                <option>Dinheiro</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-warning">Confirmar Reserva</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js"></script>
+  <script src="supabase-client.js"></script>
+  <script src="loja.js"></script>
+</body>
+</html>

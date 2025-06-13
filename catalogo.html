@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Promocional | Cezimbratattoo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        #catalogo-categorias-bar {
+            background: #222 !important;
+            min-height: 48px !important;
+            padding: 8px 0 !important;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        #catalogo-categorias-bar button {
+            min-width: 120px !important;
+            min-height: 36px !important;
+            font-size: 1.1rem !important;
+            margin-right: 12px !important;
+        }
+        .catalogo-header {
+            background: #181818;
+            border-radius: 24px;
+            box-shadow: 0 2px 18px #FFD70033;
+            padding: 2rem 1rem 1.5rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .catalogo-filtros .form-select, .catalogo-filtros .form-control {
+            border-radius: 20px;
+            border: 2px solid #FFD700;
+            background: #222;
+            color: #FFD700;
+        }
+        .catalogo-filtros .form-select:focus, .catalogo-filtros .form-control:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px #FFD70055;
+        }
+        .btn-ia {
+            background: linear-gradient(90deg, #FFD700 60%, #fff2 100%);
+            color: #181818;
+            font-weight: 800;
+            border-radius: 24px;
+            box-shadow: 0 0 16px #FFD70099, 0 2px 8px #0008;
+            font-size: 1.2rem;
+            padding: 0.7em 2.2em;
+            margin-bottom: 1.2em;
+            transition: all 0.2s;
+        }
+        .btn-ia:hover {
+            background: #fff;
+            color: #181818;
+            box-shadow: 0 0 32px #FFD700cc;
+        }
+        .catalogo-masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 576px) {
+            .catalogo-masonry { column-count: 2; }
+        }
+        @media (min-width: 992px) {
+            .catalogo-masonry { column-count: 3; }
+        }
+        .tattoo-card {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            background: #222;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px #FFD70022;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid #FFD70055;
+        }
+        .tattoo-card:hover {
+            transform: scale(1.025) translateY(-4px);
+            box-shadow: 0 8px 32px #FFD70066, 0 2px 8px #0008;
+            border-color: #FFD700;
+        }
+        .tattoo-img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            background: #111;
+        }
+        .tattoo-info {
+            padding: 1.1rem 1rem 0.7rem 1rem;
+        }
+        .tattoo-nome {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+        .tattoo-preco {
+            font-size: 1.3rem;
+            color: #FFD700;
+            font-weight: 800;
+        }
+        .tattoo-meta {
+            font-size: 0.97rem;
+            color: #fff;
+            opacity: 0.8;
+        }
+        /* Correção de contraste para modal de detalhes */
+        #modalTattooDetalhe .modal-title,
+        #modalTattooDetalhe .fw-bold,
+        #modalTattooDetalhe .badge,
+        #modalTattooDetalhe #modalTattooNome,
+        #modalTattooDetalhe #modalTattooPreco,
+        #modalTattooDetalhe #modalTattooLocal,
+        #modalTattooDetalhe #modalTattooTamanho,
+        #modalTattooDetalhe #modalTattooDescricao {
+            color: #fff !important;
+        }
+        #modalTattooDetalhe .badge.bg-warning {
+            color: #181818 !important;
+        }
+        #modalTattooDetalhe #modalTattooDescricao {
+            color: #FFD700 !important;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
+    <a href="jogue_e_ganhe.html" class="navbar-link" style="margin-left:auto; font-size:1.15rem; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:0.4em;">
+        <span style="font-size:1.4em;">🎰</span> Jogue e Ganhe
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="#" id="btn-criar-tattoo-ia">Criar tattoo com I.A</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  // Navbar highlight ativo
+  document.addEventListener('DOMContentLoaded', function() {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    if (path.endsWith('fazer_tattoo.html')) {
+      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('remover_tattoo.html')) {
+      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
+    } else if (path.endsWith('catalogo.html')) {
+      if (hash === '#ia') {
+        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
+      } else {
+        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
+      }
+    }
+  });
+</script>
+    <main class="container pt-5 mt-5 mb-5">
+        <section class="catalogo-hero position-relative mb-4">
+          <div class="catalogo-hero-bg">
+            <video class="catalogo-hero-video" src="videos/tattoo1.mp4" autoplay muted loop playsinline></video>
+            <video class="catalogo-hero-video d-none" src="videos/tattoo2.mp4" autoplay muted loop playsinline></video>
+            <video class="catalogo-hero-video d-none" src="videos/tattoo3.mp4" autoplay muted loop playsinline></video>
+            <div class="catalogo-hero-overlay"></div>
+          </div>
+          <div class="catalogo-hero-content text-center position-relative">
+            <button class="btn btn-ia mb-3 animate__animated animate__pulse animate__infinite" id="btn-criar-ia">
+                <i class="bi bi-stars"></i> Criar Tattoo com I.A.
+            </button>
+            <h2 class="text-glow mb-2">Catálogo Promocional</h2>
+            <p class="mb-0 text-light">Encontre sua próxima tattoo com preço especial!</p>
+          </div>
+        </section>
+        <form class="row g-2 justify-content-center mb-4 catalogo-filtros animate__animated animate__fadeInUp" id="form-filtro" autocomplete="off">
+            <div class="col-8 col-md-6 col-lg-4">
+                <input type="text" class="form-control" id="filtro-nome" placeholder="Buscar por nome...">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-warning fw-bold" id="btn-toggle-filtros"><i class="bi bi-funnel"></i> Filtrar</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-12 mt-2" id="filtros-avancados" style="display:none;">
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <select class="form-select w-auto" id="filtro-local">
+                        <option value="">Local</option>
+                        <option value="Braço">Braço</option>
+                        <option value="Perna">Perna</option>
+                        <option value="Costas">Costas</option>
+                        <option value="Peito">Peito</option>
+                        <option value="Mão">Mão</option>
+                    </select>
+                    <select class="form-select w-auto" id="filtro-tamanho">
+                        <option value="">Tamanho</option>
+                        <option value="Pequena">Pequena</option>
+                        <option value="Média">Média</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                    <select class="form-select w-auto" id="filtro-preco">
+                        <option value="">Preço</option>
+                        <option value="<200">Até R$ 200</option>
+                        <option value="200-400">R$ 200 a R$ 400</option>
+                        <option value=">400">Acima de R$ 400</option>
+                    </select>
+                    <button type="submit" class="btn btn-warning fw-bold px-4">Aplicar</button>
+                </div>
+            </div>
+        </form>
+        <!-- Barra de categorias -->
+        <nav class="catalogo-categorias-bar mb-3 animate__animated animate__fadeInDown" id="catalogo-categorias-bar">
+          <!-- Categorias serão inseridas via JS -->
+        </nav>
+        <!-- Grid geral de tatuagens -->
+        <div class="catalogo-masonry animate__animated animate__fadeInUp" id="catalogo-lista">
+            <!-- Cards de tatuagem serão inseridos via JS -->
+        </div>
+        <div class="text-center my-4 d-none" id="btn-voltar-catalogo">
+          <button class="btn btn-outline-warning px-4 fw-bold"><i class="bi bi-arrow-left"></i> Voltar para o catálogo principal</button>
+        </div>
+        
+
+    </main>
+    <!-- Modal Detalhes Tattoo -->
+    <div class="modal fade" id="modalTattooDetalhe" tabindex="-1" aria-labelledby="modalTattooTitulo" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-0">
+            <h5 class="modal-title fw-bold" id="modalTattooTitulo">Detalhes da Tattoo</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3 align-items-center">
+              <div class="col-md-6 text-center">
+                
+              </div>
+              <div class="col-md-6">
+                <h4 id="modalTattooNome" class="fw-bold mb-2"></h4>
+                <div class="mb-2">
+                  <span class="badge bg-warning text-dark fs-5 fw-bold" id="modalTattooPreco"></span>
+                </div>
+                <div class="mb-2">
+                  <span id="modalTattooLocal" class="me-2"></span>· <span id="modalTattooTamanho"></span>
+                </div>
+                <div class="mb-3">
+                  <span class="text-white">Formas de pagamento:</span>
+                  <span id="modalTattooPagamento" class="fw-semibold">Dinheiro, Pix, Cartão</span>
+                </div>
+                <div class="mb-3" id="modalTattooDescricao"></div>
+                <button class="btn btn-success fw-bold px-4" id="btnReservarTattoo"><i class="bi bi-whatsapp me-2"></i>Reservar horário no WhatsApp</button>
+              </div>
+            </div>
+            <!-- Formulário de reserva -->
+            <form class="mt-4 d-none" id="formReservaTattoo" autocomplete="off">
+              <div class="row g-2 justify-content-center">
+                <div class="col-md-6">
+                  <input type="text" class="form-control mb-2" id="reservaNome" placeholder="Seu nome completo" required>
+                </div>
+                <div class="col-md-3">
+                  <input type="date" class="form-control mb-2" id="reservaData" required>
+                </div>
+                <div class="col-md-3">
+                  <input type="time" class="form-control mb-2" id="reservaHora" required>
+                </div>
+                <div class="col-12 text-center">
+                  <button type="submit" class="btn btn-warning fw-bold px-4">Enviar reserva no WhatsApp</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="script-catalogo.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- Modal Wizard IA-->
+<div class="modal fade" id="modalWizardIA" tabindex="-1" aria-labelledby="modalWizardIALabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light border-warning">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-glow" id="modalWizardIALabel">Criar Tattoo com Inteligência Artificial</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="wizard-ia-form">
+          <div class="wizard-step wizard-step-local">
+            <label class="form-label fs-5">Em qual local do corpo deseja fazer a tatuagem?</label>
+            <input type="text" class="form-control form-control-lg mb-3" id="input-local" placeholder="Ex: Braço, perna, costas..." required autocomplete="off">
+            <button type="button" class="btn btn-warning btn-lg w-100 mt-2 wizard-next">Próximo</button>
+          </div>
+          <div class="wizard-step wizard-step-tamanho d-none">
+            <label class="form-label fs-5">Qual tamanho da tatuagem?</label>
+            <select class="form-select form-select-lg mb-3" id="input-tamanho" required>
+              <option value="" selected disabled>Escolha o tamanho</option>
+              <option>Pequena</option>
+              <option>Média</option>
+              <option>Grande</option>
+            </select>
+            <button type="button" class="btn btn-warning btn-lg w-100 mt-2 wizard-next">Próximo</button>
+          </div>
+          <div class="wizard-step wizard-step-desc d-none">
+            <label class="form-label fs-5">Descreva como deseja sua tatuagem</label>
+            <textarea class="form-control form-control-lg mb-3" id="input-desc" rows="3" placeholder="Descreva a ideia, estilo, elementos, cores..." required></textarea>
+            <button type="button" class="btn btn-success btn-lg w-100 mt-2 wizard-next">Gerar</button>
+          </div>
+          <div class="wizard-step wizard-step-loading d-none text-center">
+            <div class="spinner-border text-warning mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+            <div class="fs-5">Gerando sua tattoo com IA...</div>
+          </div>
+          <div class="wizard-step wizard-step-result d-none text-center">
+            <img id="ia-img-result" src="" alt="Tattoo IA" class="img-fluid rounded-4 border border-warning mb-3 animate__animated animate__fadeIn" style="max-height: 320px;">
+            <div class="d-flex gap-2 justify-content-center">
+              <button type="button" class="btn btn-success btn-lg wizard-book">Efetuar Reserva</button>
+              <button type="button" class="btn btn-warning btn-lg wizard-again">Gerar Nova Imagem</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="wizard-ia.js"></script>
+<script>
+  // Verificar se o Supabase está disponível
+  if (window.supabaseClient) {
+    console.log('Biblioteca Supabase carregada com sucesso');
+  } else {
+    console.error('Erro: Biblioteca Supabase não encontrada');
+    // Recarregar o script do Supabase
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js";
+    script.onload = function() {
+      console.log('Biblioteca Supabase recarregada com sucesso');
+      // Inicializar as funções do Supabase
+      import('./supabase-client.js')
+        .then(() => console.log('supabase-client.js carregado com sucesso'))
+        .catch(err => console.error('Erro ao carregar supabase-client.js:', err));
+    };
+    document.head.appendChild(script);
+  }
+</script>
+<script type="module" src="script-catalogo.js"></script>
+<script type="module" src="catalogo-cezimbra.js"></script>
+</body>
+</html>

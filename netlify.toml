@@ -1,0 +1,6 @@
+[build]
+  publish = "."
+  command = ""
+
+[settings]
+  # Configurações adicionais podem ser adicionadas aqui

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogue e Ganhe | Cezimbratattoo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="jogue_e_ganhe.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">🎰</div>
+        <div class="navbar-title">Cezimbra Tattoo Slots</div>
+        <a href="jogue_e_ganhe.html" class="navbar-link navbar-link-active" style="margin-left:auto; font-size:1.15rem; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:0.4em; font-weight:900; filter:drop-shadow(0 2px 8px #FFD70088);">
+            <span style="font-size:1.4em;">🎰</span> Jogue e Ganhe
+        </a>
+    </nav>
+    <div class="cassino-container animate__animated animate__fadeInDown">
+        <div class="topo-video-moldura">
+            <div class="topo-video-slider">
+                <video class="topo-video" src="videos/tattoo1.mp4" autoplay loop muted playsinline style="display:block;"></video>
+            </div>
+            <div class="topo-moldura"></div>
+        </div>
+        <div class="slot-machine slot-machine-3x3">
+            <div class="slot-moldura">
+                <div class="slot-tela">
+                    <div class="grid-roleta">
+                        <div class="rolo" id="r00">🐯</div>
+                        <div class="rolo" id="r01">🍒</div>
+                        <div class="rolo" id="r02">💎</div>
+                        <div class="rolo" id="r10">🍀</div>
+                        <div class="rolo" id="r11">🎲</div>
+                        <div class="rolo" id="r12">🔔</div>
+                        <div class="rolo" id="r20">🍋</div>
+                        <div class="rolo" id="r21">💰</div>
+                        <div class="rolo" id="r22">⭐</div>
+                    </div>
+                </div>
+            </div>
+            <button id="btn-jogar" class="botao-verde">
+                <span class="icon-refresh">&#x21bb;</span>
+            </button>
+            <div class="alavanca" id="alavanca">
+                <div class="alavanca-haste"></div>
+                <div class="alavanca-bola"></div>
+            </div>
+            <div class="pop-up-msg" id="popup-msg"></div>
+        </div>
+        <div class="painel-inferior">
+            <div class="painel-moedas" id="painel-moedas" style="text-align: center;">
+                <span class="icone-moeda">🪙</span> <span id="moedas">3</span>
+            </div>
+        </div>
+        <div class="vale-premio" id="vale-premio">🎉 Parabéns! Você ganhou um VALE TATTOO! 🎉<br><span style="font-size:1rem; font-weight:600">Mostre este prêmio para o atendente!</span></div>
+        <div id="popup-instrucoes" class="popup-instrucoes">
+            <div class="popup-instrucoes-content">
+                <h2>Resgate seu VALE TATTOO!</h2>
+                <ol>
+                    <li>Poste este prêmio nos stories do Instagram.</li>
+                    <li>Marque <b>@cezimbra-tattoo</b>.</li>
+                    <li>Marque <b>5 amigos</b> no post.</li>
+                    <li>Mostre o post para o atendente para liberar seu prêmio.</li>
+                </ol>
+                <a href="https://instagram.com/cezimbra-tattoo" target="_blank" class="btn-insta">Abrir Instagram</a>
+                <button id="fechar-instrucoes" class="btn-fechar">Fechar</button>
+            </div>
+        </div>
+        <div id="big-win-celebration" class="big-win-celebration">
+            <div class="big-win-bg"></div>
+            <div class="big-win-content">
+                <div class="big-win-mascot">🐯</div>
+                <div class="big-win-title">BIG WIN</div>
+                <div class="big-win-value">VALE TATTOO</div>
+                <div class="big-win-particles"></div>
+            </div>
+        </div>
+        <div class="comprar-moedas" id="comprar-moedas" style="display:none;">
+            <p>Acabaram suas moedas!<br>Compre mais para continuar jogando.</p>
+            <button class="btn btn-warning fw-bold" id="btn-comprar">Comprar +3 Moedas</button>
+        </div>
+    </div>
+    <script src="jogue_e_ganhe.js"></script>
+</body>
+</html>
