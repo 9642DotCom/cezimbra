@@ -31,6 +31,49 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
+        /* Botões de ação da home */
+        .index-btn-group .btn {
+            min-width: 220px;
+            min-height: 54px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 32px;
+            transition: all 0.18s;
+            box-shadow: 0 2px 14px #000a;
+            letter-spacing: 0.01em;
+            margin: 0 0.25em 0.5em 0.25em;
+        }
+        .index-btn-main {
+            background: linear-gradient(90deg, #FFD700 70%, #fff2 100%);
+            color: #181818;
+            border: none;
+            box-shadow: 0 2px 18px #FFD70033, 0 2px 8px #0008;
+        }
+        .index-btn-main:hover, .index-btn-main:focus {
+            background: #fff;
+            color: #181818;
+            box-shadow: 0 4px 24px #FFD700cc;
+        }
+        .index-btn-alt {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        .index-btn-alt:hover, .index-btn-alt:focus {
+            background: #fff;
+            color: #181818;
+            border-color: #FFD700;
+        }
+        .index-btn-promo {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+        }
+        .index-btn-promo:hover, .index-btn-promo:focus {
+            background: #FFD700;
+            color: #181818;
+            border-color: #FFD700;
+        }
     </style>
 </head>
 <body class="bg-dark">
@@ -91,10 +134,10 @@
         <section class="hero-section text-center position-relative w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="height: 100vh; min-height: 100vh;">
             <h1 class="display-3 fw-bold text-glow mb-3">Cezimbratattoo</h1>
             <h2 class="h4 text-light mb-4">Arte, exclusividade e tecnologia para sua pele</h2>
-            <div class="d-flex flex-wrap gap-3 justify-content-center mb-4">
-                <a href="fazer_tattoo.html" class="btn btn-warning btn-lg fw-bold px-4 py-2">Fazer Tattoo</a>
-                <a href="remover_tattoo.html" class="btn btn-outline-light btn-lg fw-bold px-4 py-2">Remover Tattoo</a>
-                <a href="catalogo.html" class="btn btn-outline-warning btn-lg fw-bold px-4 py-2">Catálogo Promocional</a>
+            <div class="d-flex flex-wrap gap-3 justify-content-center mb-4 index-btn-group">
+                <a href="fazer_tattoo.html" class="btn index-btn-main">Fazer Tattoo</a>
+                <a href="remover_tattoo.html" class="btn index-btn-alt">Remover Tattoo</a>
+                <a href="catalogo.html" class="btn index-btn-promo">Catálogo Promocional</a>
             </div>
         </section>
     </main>

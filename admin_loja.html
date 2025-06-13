@@ -124,7 +124,10 @@
         <form id="formCategoria">
           <div class="modal-body">
             <input type="hidden" name="id" id="categoriaId">
-            
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input type="text" class="form-control" name="nome" id="categoriaNome" required maxlength="50">
+            </div>
             <div class="mb-3">
               <label class="form-label">Descrição</label>
               <textarea class="form-control" name="descricao" id="categoriaDescricao" maxlength="200"></textarea>
