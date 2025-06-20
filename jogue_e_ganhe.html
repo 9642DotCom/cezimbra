@@ -8,52 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="jogue_e_ganhe.css" />
 </head>
-<body class="bg-dark text-light">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">Cezimbra Tattoo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="fazer_tattoo.html">Fazer Tattoo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="guia-cuidados.html">Guia de Cuidados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="remover_tattoo.html">Remoção a Laser</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="catalogo.html">Catálogo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="jogue_e_ganhe.html">
-                            <span style="font-size:1.2em;">🎰</span> Jogue e Ganhe
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">🎰</div>
+        <div class="navbar-title">Cezimbra Tattoo Slots</div>
+        <a href="jogue_e_ganhe.html" class="navbar-link navbar-link-active" style="margin-left:auto; font-size:1.15rem; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:0.4em; font-weight:900; filter:drop-shadow(0 2px 8px #FFD70088);">
+            <span style="font-size:1.4em;">🎰</span> Jogue e Ganhe
+        </a>
     </nav>
-    
-    <script>
-    // Highlight current page in navigation
-    document.addEventListener('DOMContentLoaded', function() {
-        var path = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === path.split('/').pop()) {
-                link.classList.add('active', 'text-warning', 'fw-bold');
-            }
-        });
-    });
-    </script>
     <div class="cassino-container animate__animated animate__fadeInDown">
         <div class="topo-video-moldura">
             <div class="topo-video-slider">

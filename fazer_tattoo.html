@@ -8,49 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-        .galeria-videos {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-            visibility: hidden;
-        }
-        .galeria-videos.visible {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .galeria-videos.visible h3 {
-            animation: pulse 2s infinite;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-        }
-        
-        .orcamento-catalogo {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
-            visibility: hidden;
-        }
-        
-        .orcamento-catalogo.visible {
-            opacity: 1;
-            transform: translateY(0);
-            visibility: visible;
-        }
-        
-        .orcamento-catalogo h4 {
-            transition: all 0.5s ease-out;
-        }
-        
-        .orcamento-catalogo.visible h4 {
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-        }
         .carousel-item video {
             width: 100%;
             height: 480px;
@@ -81,36 +38,30 @@
     </style>
 </head>
 <body class="bg-dark text-light">
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">Cezimbra Tattoo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="fazer_tattoo.html">Fazer Tattoo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="guia-cuidados.html">Guia de Cuidados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="remover_tattoo.html">Remoção a Laser</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="jogue_e_ganhe.html">
-                            <span style="font-size:1.2em;">🎰</span> Jogue e Ganhe
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="catalogo.html#ia" id="nav-ia">Criar tattoo com I.A</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <script>
   // Navbar highlight ativo
   document.addEventListener('DOMContentLoaded', function() {
@@ -135,27 +86,8 @@
             <p class="fs-5 mb-2 anim-artista">Trabalho exclusivamente com <span class="fw-bold text-warning">materiais descartáveis de alta qualidade</span> e <span class="fw-bold text-warning">pigmentos premium</span> para garantir segurança, saúde e resultados excepcionais.</p>
             <p class="fs-5 mb-2 anim-artista">Possuo diversas <span class="fw-bold text-warning">certificações nacionais e internacionais</span> em biossegurança, pigmentação e técnicas avançadas de tatuagem.</p>
             <p class="fs-5 mb-2 anim-artista">Sou especialista em <span class="fw-bold text-warning">realismo preto e cinza</span>, fechamento de tatuagens antigas e <span class="fw-bold text-warning">cobertura de tatuagem a laser</span>.</p>
-            <div class="instagram-container mt-4 mx-auto" style="max-width: 500px; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);">
-         
-                <video src="videos/WhatsApp Video 2025-06-20 at 14.39.35.mp4" alt="Artista" class="w-100" style="display: block; background: #000;" autoplay loop playsinline controls>
-                <div class="instagram-actions p-3">
-                    <div class="d-flex mb-2">
-                        <button class="btn btn-link p-0 me-3" style="color: #fff;">
-                            <i class="far fa-heart fa-lg"></i>
-                        </button>
-                        <button class="btn btn-link p-0 me-3" style="color: #fff;">
-                            <i class="far fa-comment fa-lg"></i>
-                        </button>
-                        <button class="btn btn-link p-0 me-3" style="color: #fff;">
-                            <i class="far fa-paper-plane fa-lg"></i>
-                        </button>
-                    </div>
-                    <div class="likes text-light fw-bold mb-1">Curtido por <span class="text-light">usuário</span> e <span class="text-light">outras 1.234 pessoas</span></div>
-                    <div class="caption text-light">
-                        <span class="fw-bold me-1">cezimbrabh</span>
-                        <span>Conheça meu trabalho! 🎨✨ #TattooArtist #InkLife</span>
-                    </div>
-                </div>
+            <div class="text-center mt-4">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Artista" class="rounded-circle shadow-lg" style="width:120px;height:120px;object-fit:cover;border:4px solid #FFD700;">
             </div>
         </section>
         <section class="galeria-videos mb-5">
@@ -189,46 +121,12 @@
         </section>
         <section class="orcamento-catalogo text-center animate__animated animate__fadeInUp mt-5">
             <h4 class="mb-4 text-glow">Qual opção você deseja?</h4>
-            <div class="d-flex justify-content-center gap-4">
-                <button id="btn-orcamento-tattoo" class="btn btn-success btn-lg fw-bold animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#modalOrcamentoTattoo">Fazer Orçamento no WhatsApp</button>
-                <button id="btn-catalogo-tattoo" class="btn btn-warning btn-lg fw-bold animate__animated animate__pulse animate__infinite">Conhecer Catálogo Promocional</button>
-            </div>
+            <button id="btn-orcamento-tattoo" class="btn btn-success btn-lg fw-bold mx-3 animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#modalOrcamentoTattoo">Fazer Orçamento no WhatsApp</button>
+<button id="btn-catalogo-tattoo" class="btn btn-warning btn-lg fw-bold mx-3 animate__animated animate__pulse animate__infinite">Conhecer Catálogo Promocional</button>
 
 
         </section>
     </main>
-    <script>
-        // Show video section with animation after 8 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                // Show video section
-                const videoSection = document.querySelector('.galeria-videos');
-                videoSection.classList.add('visible');
-                
-                // Add a class to the heading for the glowing effect
-                const heading = videoSection.querySelector('h3');
-                heading.classList.add('animate__animated', 'animate__fadeInDown', 'animate__faster');
-                
-                // Add animation to carousel
-                const carousel = videoSection.querySelector('.carousel');
-                carousel.classList.add('animate__animated', 'animate__fadeInUp');
-                
-                // Show options section after video section is visible
-                setTimeout(function() {
-                    const optionsSection = document.querySelector('.orcamento-catalogo');
-                    optionsSection.classList.add('visible');
-                    optionsSection.classList.add('animate__animated', 'animate__fadeInUp');
-                    
-                    // Add pulse animation to buttons
-                    const buttons = optionsSection.querySelectorAll('.btn');
-                    buttons.forEach(btn => {
-                        btn.classList.add('animate__animated', 'animate__pulse', 'animate__infinite');
-                    });
-                }, 1000); // 1 second after video section
-                
-            }, 8000); // 8 seconds initial delay
-        });
-    </script>
 <!-- Modal Orçamento WhatsApp -->
 <div class="modal fade" id="modalOrcamentoTattoo" tabindex="-1" aria-labelledby="modalOrcamentoTattooLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

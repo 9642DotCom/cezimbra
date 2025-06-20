@@ -1,14 +1,30 @@
 // adm_catalogo.js
-// Gerenciamento de múltiplos uploads de imagens e edição em lote, integração com backend PHP
+// Gerenciamento de múltiplos uploads de imagens e edição em lote, integração com Supabase
+
+// Acesso via objeto global window.supabaseClient
+const {
+  supabase,
+  fetchTattoos,
+  fetchCategories,
+  addTattoo,
+  updateTattoo,
+  deleteTattoo,
+  addCategory,
+  deleteCategory
+} = window.supabaseClient;
 
 let tattoos = [];
 let categorias = [];
 
-// Busca categorias do backend
-async function fetchCategorias() {
-  const res = await fetch('api/categories.php');
-  categorias = (await res.json()).map(c => c.nome);
-  renderCategorias();
+// Busca categorias do Supabase
+async function loadCategorias() {
+  try {
+    const categoriesData = await fetchCategories();
+    categorias = categoriesData.map(c => c.nome);
+    renderCategorias();
+  } catch (error) {
+    console.error('Erro ao buscar categorias:', error);
+  }
 }
 
 // Renderiza categorias nos selects e lista
@@ -34,22 +50,43 @@ function renderCategorias() {
 window.editCategoria = async function(cat) {
   const novoNome = prompt('Editar nome da categoria:', cat);
   if (!novoNome || novoNome === cat || categorias.includes(novoNome)) return;
-  await fetch('api/categories.php', {
-    method: 'PUT',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({old: cat, novo: novoNome})
-  });
-  await fetchCategorias();
+  
+  try {
+    // Primeiro verificamos se essa categoria existe
+    const { data: catData } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('nome', cat)
+      .single();
+      
+    if (catData) {
+      // Atualiza a categoria
+      await supabase
+        .from('categories')
+        .update({ nome: novoNome })
+        .eq('id', catData.id);
+      
+      await loadCategorias();
+    }
+  } catch (error) {
+    console.error('Erro ao editar categoria:', error);
+    alert('Erro ao editar categoria: ' + error.message);
+  }
 };
 
 window.deleteCategoria = async function(cat) {
   if (confirm('Excluir categoria?')) {
-    await fetch('api/categories.php', {
-      method: 'DELETE',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({nome: cat})
-    });
-    await fetchCategorias();
+    try {
+      await supabase
+        .from('categories')
+        .delete()
+        .eq('nome', cat);
+        
+      await loadCategorias();
+    } catch (error) {
+      console.error('Erro ao excluir categoria:', error);
+      alert('Erro ao excluir categoria');
+    }
   }
 };
 
@@ -71,11 +108,16 @@ function renderTattoos() {
   `).join('');
 }
 
-// Busca tatuagens do backend
-async function fetchTattoos() {
-  const res = await fetch('api/tattoos.php');
-  tattoos = await res.json();
-  renderTattoos();
+// Busca// carrega as tatuagens
+async function loadTattoos() {
+  try {
+    tattoos = await fetchTattoos();
+    
+    renderTattoos();
+  } catch (error) {
+    console.error('Erro ao carregar tatuagens:', error);
+    alert('Erro ao carregar tatuagens do servidor');
+  }
 }
 
 // Adiciona categoria
@@ -85,14 +127,15 @@ if (formAddCategoria) {
     e.preventDefault();
     const nome = formAddCategoria.categoria.value.trim();
     if (nome && !categorias.includes(nome)) {
-      await fetch('api/categories.php', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({nome})
-      });
-      await fetchCategorias();
-      formAddCategoria.reset();
-      bootstrap.Modal.getInstance(document.getElementById('modalAddCategoria')).hide();
+      try {
+        await addCategory(nome);
+        await loadCategorias();
+        formAddCategoria.reset();
+        bootstrap.Modal.getInstance(document.getElementById('modalAddCategoria')).hide();
+      } catch (error) {
+        console.error('Erro ao adicionar categoria:', error);
+        alert('Erro ao adicionar categoria');
+      }
     }
   };
 }
@@ -163,20 +206,25 @@ if (formAddTattooMulti) {
     e.preventDefault();
     const validTats = multiTattooData.filter(t => t.nome && t.categoria && t.preco && t.file);
     if (validTats.length === 0) return;
-    const formData = new FormData();
-    validTats.forEach((t, i) => {
-      formData.append('imagens[]', t.file);
-      formData.append('nomes[]', t.nome);
-      formData.append('categorias[]', t.categoria);
-      formData.append('precos[]', t.preco);
-    });
-    await fetch('api/tattoos.php', {
-      method: 'POST',
-      body: formData
-    });
-    await fetchTattoos();
-    bootstrap.Modal.getInstance(document.getElementById('modalAddTattoo')).hide();
-    multiTattooData = [];
+    
+    try {
+      // Exibir um indicador de progresso
+      const totalImages = validTats.length;
+      let completedUploads = 0;
+      
+      // Para cada tatuagem válida, faz o upload
+      for (const tat of validTats) {
+        await addTattoo(tat.nome, tat.categoria, tat.preco, tat.file);
+        completedUploads++;
+      }
+      
+      await loadTattoos();
+      bootstrap.Modal.getInstance(document.getElementById('modalAddTattoo')).hide();
+      multiTattooData = [];
+    } catch (error) {
+      console.error('Erro ao adicionar tatuagens:', error);
+      alert('Erro ao adicionar algumas tatuagens. Verifique e tente novamente.');
+    }
   };
 }
 
@@ -186,8 +234,8 @@ if (multiTattooInput) {
   multiTattooInput.addEventListener('change', handleMultiTattooInput);
 }
 
-// Edição e exclusão (simples, em memória)
-window.editTattoo = function(id) {
+// Edição e exclusão
+window.editTattoo = async function(id) {
   const tat = tattoos.find(t => t.id == id);
   if (!tat) return;
   // Cria modal simples para edição
@@ -197,25 +245,28 @@ window.editTattoo = function(id) {
   if (!categoria) return;
   const preco = prompt('Editar preço:', tat.preco);
   if (!preco) return;
-  const imagem = prompt('Editar URL da imagem:', tat.imagem);
-  if (!imagem) return;
-  fetch('api/tattoos.php', {
-    method: 'PUT',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({id, nome, categoria, preco, imagem})
-  }).then(fetchTattoos);
+  
+  try {
+    await updateTattoo(id, nome, categoria, preco);
+    await loadTattoos();
+  } catch (error) {
+    console.error('Erro ao atualizar tatuagem:', error);
+    alert('Erro ao atualizar tatuagem');
+  }
 };
+
 window.deleteTattoo = async function(id) {
-  if (confirm('Tem certeza que deseja excluir esta tatuagem?')) {
-    await fetch('api/tattoos.php', {
-      method: 'DELETE',
-      body: 'id='+encodeURIComponent(id),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    });
-    await fetchTattoos();
+  if (confirm('Excluir tatuagem?')) {
+    try {
+      await deleteTattoo(id);
+      await loadTattoos();
+    } catch (error) {
+      console.error('Erro ao excluir tatuagem:', error);
+      alert('Erro ao excluir tatuagem');
+    }
   }
 };
 
 // Inicialização
-fetchCategorias();
-fetchTattoos();
+loadCategorias();
+loadTattoos();
