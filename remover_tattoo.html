@@ -9,48 +9,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <body class="bg-dark text-light">
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
-  <div class="container-fluid">
-    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="catalogo.html#ia" id="nav-ia">Criar tattoo com I.A</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<script>
-  // Navbar highlight ativo
-  document.addEventListener('DOMContentLoaded', function() {
-    var path = window.location.pathname;
-    var hash = window.location.hash;
-    if (path.endsWith('fazer_tattoo.html')) {
-      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
-    } else if (path.endsWith('remover_tattoo.html')) {
-      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
-    } else if (path.endsWith('catalogo.html')) {
-      if (hash === '#ia') {
-        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
-      } else {
-        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
-      }
-    }
-  });
-</script>
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Cezimbra Tattoo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fazer_tattoo.html">Fazer Tattoo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="guia-cuidados.html">Guia de Cuidados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="remover_tattoo.html">Remoção a Laser</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jogue_e_ganhe.html">
+                            <span style="font-size:1.2em;">🎰</span> Jogue e Ganhe
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <main class="container d-flex flex-column align-items-center justify-content-center min-vh-100 pt-5">
         <div class="questionario-box animate__animated animate__fadeInUp mt-5 p-4 rounded-4 shadow-lg bg-gradient bg-black bg-opacity-75">
             <h2 class="mb-4 text-center fw-bold text-glow">Remoção de Tatuagem a Laser</h2>

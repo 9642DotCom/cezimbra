@@ -1,6 +1,3 @@
-// Importa o cliente Supabase e funções de utilidade
-// Removido import ES6 para compatibilidade com scripts globais
-
 // Variáveis globais para armazenar dados do backend
 let allTattoos = [];
 let allCategories = [];
@@ -11,10 +8,10 @@ function renderTattoos(tatuagens) {
     if (!lista) return;
     lista.innerHTML = tatuagens.map((tattoo, idx) => `
         <div class="tattoo-card animate__animated animate__fadeInUp" data-idx="${idx}">
-            <img src="${tattoo.imagem_base64 ? tattoo.imagem_base64 : (tattoo.imagem || '')}" alt="${tattoo.nome || ''}" class="tattoo-img">
+            <img src="${tattoo.imagem ? tattoo.imagem.replace(/\\/g, '/') : ''}" alt="${tattoo.nome || ''}" class="tattoo-img">
             <div class="tattoo-info">
                 <div class="tattoo-nome">${tattoo.nome || ''}</div>
-                <div class="tattoo-meta">${tattoo.categoria?.nome || ''}</div>
+                <div class="tattoo-meta">${tattoo.categoria || ''}</div>
                 <div class="tattoo-preco">R$ ${tattoo.preco || ''}</div>
             </div>
         </div>
@@ -27,7 +24,7 @@ function renderTattoos(tatuagens) {
         });
     });
     // Animação na rolagem (Intersection Observer)
-    const cards = document.querySelectorAll('.tattoo-card');
+    document.querySelectorAll('.tattoo-card');
     const observer = new window.IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -43,105 +40,41 @@ function renderTattoos(tatuagens) {
     });
 }
 
-// Filtro de busca por categoria
-async function renderCategorias() {
-    try {
-        // Busca categorias do backend
-        const categoriasFull = await fetchCategorias();
-        allCategories = categoriasFull;
-        const catFilters = document.getElementById('category-filters');
-        if (!catFilters) return;
-        catFilters.innerHTML = `
-            <div class="category-filter active" data-cat="todas">Todas</div>
-            ${allCategories.map(cat => `<div class="category-filter" data-cat="${cat.id}">${cat.nome}</div>`).join('')}
-        `;
-        // Ativa os handlers de filtro
-        const filters = document.querySelectorAll('.category-filter');
-        filters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                filters.forEach(f => f.classList.remove('active'));
-                this.classList.add('active');
-                const catId = this.getAttribute('data-cat');
-                if (catId === 'todas') {
-                    renderTattoos(allTattoos);
-                } else {
-                    const filtered = allTattoos.filter(t => t.categoria_id == catId);
-                    renderTattoos(filtered);
-                }
-            });
-        });
-    } catch (error) {
-        console.error('Erro ao carregar categorias:', error);
-    }
+// Renderiza barra de categorias
+function renderCategoriasBar() {
+    const bar = document.getElementById('catalogo-categorias-bar');
+    if (!bar) return;
+    bar.innerHTML = `<button class="btn btn-outline-warning me-2" data-categoria="">Todas</button>` +
+        allCategories.map(cat => `<button class="btn btn-outline-warning me-2" data-categoria="${cat.nome}">${cat.nome}</button>`).join('');
+    // Evento de filtro
+    bar.querySelectorAll('button').forEach(btn => {
+        btn.onclick = () => {
+            const cat = btn.getAttribute('data-categoria');
+            renderTattoos(cat ? allTattoos.filter(t => t.categoria === cat) : allTattoos);
+            bar.querySelectorAll('button').forEach(b=>b.classList.remove('active','fw-bold','text-dark','bg-warning'));
+            btn.classList.add('active','fw-bold','text-dark','bg-warning');
+        };
+    });
 }
 
-// Importar funções do cliente Supabase
-let fetchCategories, fetchTattoos;
-
-// Função para buscar categorias do Supabase
+// Busca categorias do backend
 async function fetchCategorias() {
-  try {
-    const { data, error } = await supabase
-      .from('catalogo_categorias')
-      .select('*')
-      .order('nome');
-    if (error) throw error;
-    return data || [];
-  } catch (error) {
-    console.error('Erro ao buscar categorias:', error);
-    return [];
-  }
+    const res = await fetch('api/categories.php');
+    allCategories = await res.json();
+    renderCategoriasBar();
 }
 
-// Função para buscar tatuagens do Supabase usando o client global
-async function fetchTatuagens() {
-  try {
-    if (!window.catalogoClient || !window.catalogoClient.buscarItens) {
-      throw new Error('catalogoClient.buscarItens não disponível');
-    }
-    // Busca todos os itens cadastrados no admin (tabela catalogo_itens)
-    const data = await window.catalogoClient.buscarItens();
-    return data || [];
-  } catch (error) {
-    console.error('Erro ao buscar tatuagens:', error);
-    return [];
-  }
-}
-
-// Busca categorias do Supabase
-async function loadCategories() {
-    fetchCategorias().then(categorias => {
-        allCategories = categorias;
-        renderCategorias();
-    });
-}
-
-// Busca tatuagens do Supabase usando o client global
-function loadTattoos() {
-    fetchTatuagens().then(tatuagens => {
-        allTattoos = tatuagens;
-        renderTattoos(tatuagens);
-    });
+// Busca tatuagens do backend
+async function fetchTattoos() {
+    const res = await fetch('api/tattoos.php');
+    allTattoos = await res.json();
+    renderTattoos(allTattoos);
 }
 
 
 // Função para preencher e abrir o modal de detalhes
 function abrirModalTattoo(tattoo) {
-  // Corrige exibição da imagem (base64 ou URL)
-  const imgEl = document.getElementById('modalTattooImg');
-  if (tattoo.imagem_base64) {
-    imgEl.src = tattoo.imagem_base64;
-    imgEl.alt = tattoo.nome || 'Tattoo';
-    imgEl.style.display = '';
-  } else if (tattoo.imagem) {
-    imgEl.src = tattoo.imagem.replace(/\\/g, '/');
-    imgEl.alt = tattoo.nome || 'Tattoo';
-    imgEl.style.display = '';
-  } else {
-    imgEl.src = '';
-    imgEl.alt = 'Sem imagem disponível';
-    imgEl.style.display = 'none';
-  }
+  document.getElementById('modalTattooImg').src = tattoo.imagem ? tattoo.imagem.replace(/\\/g, '/') : '';
   document.getElementById('modalTattooNome').textContent = tattoo.nome || '';
   document.getElementById('modalTattooPreco').textContent = tattoo.preco ? `R$ ${tattoo.preco}` : '';
   document.getElementById('modalTattooLocal').textContent = tattoo.local || '';
@@ -232,8 +165,8 @@ document.getElementById('btn-voltar-catalogo').onclick = function() {
 
 // --- Inicialização ---
 document.addEventListener('DOMContentLoaded', function() {
-    loadCategories();
-    loadTattoos();
+    fetchCategorias();
+    fetchTattoos();
 
     // Carrossel de vídeos hero
     const heroVideos = document.querySelectorAll('.catalogo-hero-video');

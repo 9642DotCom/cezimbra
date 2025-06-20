@@ -6,7 +6,6 @@
     <title>Catálogo Promocional | Cezimbratattoo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         #catalogo-categorias-bar {
@@ -107,71 +106,56 @@
             color: #fff;
             opacity: 0.8;
         }
-        /* Correção de contraste para modal de detalhes */
-        #modalTattooDetalhe .modal-title,
-        #modalTattooDetalhe .fw-bold,
-        #modalTattooDetalhe .badge,
-        #modalTattooDetalhe #modalTattooNome,
-        #modalTattooDetalhe #modalTattooPreco,
-        #modalTattooDetalhe #modalTattooLocal,
-        #modalTattooDetalhe #modalTattooTamanho,
-        #modalTattooDetalhe #modalTattooDescricao {
-            color: #fff !important;
-        }
-        #modalTattooDetalhe .badge.bg-warning {
-            color: #181818 !important;
-        }
-        #modalTattooDetalhe #modalTattooDescricao {
-            color: #FFD700 !important;
-        }
     </style>
 </head>
 <body class="bg-dark text-light">
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-lg">
-  <div class="container-fluid">
-    <span class="navbar-brand fw-bold fs-4">Cezimbra Tattoo</span>
-    <a href="jogue_e_ganhe.html" class="navbar-link" style="margin-left:auto; font-size:1.15rem; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:0.4em;">
-        <span style="font-size:1.4em;">🎰</span> Jogue e Ganhe
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="fazer_tattoo.html#orcamento" id="nav-orcamento">Fazer Orçamento</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="remover_tattoo.html" id="nav-remocao">Remoção de Tatuagem</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="catalogo.html" id="nav-catalogo">Catálogo de Tatuagem</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fw-bold" href="#" id="btn-criar-tattoo-ia">Criar tattoo com I.A</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<script>
-  // Navbar highlight ativo
-  document.addEventListener('DOMContentLoaded', function() {
-    var path = window.location.pathname;
-    var hash = window.location.hash;
-    if (path.endsWith('fazer_tattoo.html')) {
-      document.getElementById('nav-orcamento').classList.add('text-warning','fw-bold');
-    } else if (path.endsWith('remover_tattoo.html')) {
-      document.getElementById('nav-remocao').classList.add('text-warning','fw-bold');
-    } else if (path.endsWith('catalogo.html')) {
-      if (hash === '#ia') {
-        document.getElementById('nav-ia').classList.add('text-warning','fw-bold');
-      } else {
-        document.getElementById('nav-catalogo').classList.add('text-warning','fw-bold');
-      }
-    }
-  });
-</script>
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Cezimbra Tattoo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fazer_tattoo.html">Fazer Tattoo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="guia-cuidados.html">Guia de Cuidados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="remover_tattoo.html">Remoção a Laser</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="catalogo.html">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jogue_e_ganhe.html">
+                            <span style="font-size:1.2em;">🎰</span> Jogue e Ganhe
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script>
+      // Navbar highlight ativo
+      document.addEventListener('DOMContentLoaded', function() {
+        var path = window.location.pathname;
+        var hash = window.location.hash;
+        
+        // Highlight current page in navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+          if (link.getAttribute('href') === path.split('/').pop()) {
+            link.classList.add('active', 'text-warning', 'fw-bold');
+          }
+        });
+      });
+    </script>
     <main class="container pt-5 mt-5 mb-5">
         <section class="catalogo-hero position-relative mb-4">
           <div class="catalogo-hero-bg">
@@ -233,8 +217,6 @@
         <div class="text-center my-4 d-none" id="btn-voltar-catalogo">
           <button class="btn btn-outline-warning px-4 fw-bold"><i class="bi bi-arrow-left"></i> Voltar para o catálogo principal</button>
         </div>
-        
-
     </main>
     <!-- Modal Detalhes Tattoo -->
     <div class="modal fade" id="modalTattooDetalhe" tabindex="-1" aria-labelledby="modalTattooTitulo" aria-hidden="true">
@@ -258,7 +240,7 @@
                   <span id="modalTattooLocal" class="me-2"></span>· <span id="modalTattooTamanho"></span>
                 </div>
                 <div class="mb-3">
-                  <span class="text-white">Formas de pagamento:</span>
+                  <span class="text-muted">Formas de pagamento:</span>
                   <span id="modalTattooPagamento" class="fw-semibold">Dinheiro, Pix, Cartão</span>
                 </div>
                 <div class="mb-3" id="modalTattooDescricao"></div>
@@ -288,7 +270,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="script-catalogo.js"></script>
+    <script src="script-catalogo.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <!-- Modal Wizard IA-->
 <div class="modal fade" id="modalWizardIA" tabindex="-1" aria-labelledby="modalWizardIALabel" aria-hidden="true">
@@ -337,26 +319,5 @@
   </div>
 </div>
 <script src="wizard-ia.js"></script>
-<script>
-  // Verificar se o Supabase está disponível
-  if (window.supabaseClient) {
-    console.log('Biblioteca Supabase carregada com sucesso');
-  } else {
-    console.error('Erro: Biblioteca Supabase não encontrada');
-    // Recarregar o script do Supabase
-    const script = document.createElement('script');
-    script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/umd/supabase.min.js";
-    script.onload = function() {
-      console.log('Biblioteca Supabase recarregada com sucesso');
-      // Inicializar as funções do Supabase
-      import('./supabase-client.js')
-        .then(() => console.log('supabase-client.js carregado com sucesso'))
-        .catch(err => console.error('Erro ao carregar supabase-client.js:', err));
-    };
-    document.head.appendChild(script);
-  }
-</script>
-<script type="module" src="script-catalogo.js"></script>
-<script type="module" src="catalogo-cezimbra.js"></script>
 </body>
 </html>
